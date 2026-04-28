@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>An Evening Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #1a1208;
+      background-image:
+        radial-gradient(ellipse at top, #2e1f0a 0%, #1a1208 60%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .menu-card {
+      background: #fdf6e3;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      max-width: 680px;
+      width: 100%;
+      padding: 60px 56px;
+      position: relative;
+      box-shadow:
+        0 0 0 1px #c9a84c,
+        0 0 0 6px #fdf6e3,
+        0 0 0 7px #c9a84c,
+        0 8px 60px rgba(0,0,0,0.6);
+    }
+
+    /* Corner ornaments */
+    .menu-card::before,
+    .menu-card::after {
+      content: '✦';
+      position: absolute;
+      font-size: 1.1rem;
+      color: #c9a84c;
+    }
+    .menu-card::before { top: 18px; left: 22px; }
+    .menu-card::after  { bottom: 18px; right: 22px; }
+
+    .corner-br, .corner-tl {
+      position: absolute;
+      font-size: 1.1rem;
+      color: #c9a84c;
+    }
+    .corner-tl { top: 18px; right: 22px; }
+    .corner-br { bottom: 18px; left: 22px; }
+
+    /* Header */
+    .menu-header {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .tagline {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      margin-bottom: 14px;
+    }
+
+    .restaurant-name {
+      font-family: 'Cinzel', serif;
+      font-size: 2.6rem;
+      font-weight: 600;
+      color: #2c1f0a;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #8b6914;
+      margin-bottom: 18px;
+    }
+
+    .header-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto;
+      max-width: 400px;
+    }
+
+    .header-rule span {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    }
+
+    .header-rule .diamond {
+      color: #c9a84c;
+      font-size: 0.7rem;
+    }
+
+    /* Section */
+    .menu-section {
+      margin-bottom: 38px;
+    }
+
+    .section-label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #c9a84c;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .divider span {
+      flex: 1;
+      height: 1px;
+      background: #d4b483;
+    }
+
+    .divider .fleuron {
+      color: #c9a84c;
+      font-size: 1rem;
+    }
+
+    /* Dish */
+    .dish {
+      text-align: center;
+      padding: 0 12px;
+    }
+
+    .dish-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #2c1f0a;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .dish-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .dish-dots span {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #c9a84c;
+      display: inline-block;
+    }
+
+    .dish-description {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #5a3e1b;
+      line-height: 1.65;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    .menu-footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #d4b483;
+    }
+
+    .footer-ornament {
+      font-size: 1.4rem;
+      color: #c9a84c;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .footer-text {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #9a7530;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-card">
+    <span class="corner-tl">✦</span>
+    <span class="corner-br">✦</span>
+
+    <header class="menu-header">
+      <p class="tagline">An Evening's Tasting at</p>
+      <h1 class="restaurant-name">The Eclectic Table</h1>
+      <p class="subtitle">A curated menu to honour my home for the past three years</p>
+      <div class="header-rule">
+        <span></span>
+        <span class="diamond">◆</span>
+        <span></span>
+      </div>
+    </header>
+
+    <!-- APPETIZER -->
+    <section class="menu-section">
+      <p class="section-label">Appetizer</p>
+      <div class="divider">
+        <span></span>
+        <span class="fleuron">❧</span>
+        <span></span>
+      </div>
+      <div class="dish">
+        <h2 class="dish-name">Cucumber Salad</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          Thinly sliced garden cucumbers cut into swirls and dressed in a delicate blend of soy sauce, honey, sesame, and a whisper of chilli flake.
+        </p>
+      </div>
+    </section>
+
+    <!-- ENTRÉE -->
+    <section class="menu-section">
+      <p class="section-label">Entrée</p>
+      <div class="divider">
+        <span></span>
+        <span class="fleuron">❧</span>
+        <span></span>
+      </div>
+      <div class="dish">
+        <h2 class="dish-name">Chilli Beef Lettuce Wrap</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          Slow-seasoned ground beef with aromatic ginger, garlic, and fiery chilli,
+          cradled in crisp butter lettuce cups.
+        </p>
+      </div>
+    </section>
+
+    <!-- DESSERT -->
+    <section class="menu-section">
+      <p class="section-label">Dessert</p>
+      <div class="divider">
+        <span></span>
+        <span class="fleuron">❧</span>
+        <span></span>
+      </div>
+      <div class="dish">
+        <h2 class="dish-name">Chocolate Strawberries</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          Plump, sun-ripened strawberries enrobed in rich milk chocolate.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- BEVERAGES -->
+    <section class="menu-section">
+      <p class="section-label">Beverages</p>
+      <div class="divider">
+        <span></span>
+        <span class="fleuron">❧</span>
+        <span></span>
+      </div>
+      <div class="dish">
+        <h2 class="dish-name">Sparkling Peach Bellini</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          Delicate peach nectar kissed with fine bubbles.
+        </p>
+      </div>
+    </section>
+
+    <section class="menu-section">
+      <div class="dish">
+        <h2 class="dish-name">Whiteclaw</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          An assortment of flavours, lightly sparkling and refreshingly crisp.
+        </p>
+      </div>
+    </section>
+
+    <section class="menu-section">
+      <div class="dish">
+        <h2 class="dish-name">Diet Coke</h2>
+        <div class="dish-dots"><span></span><span></span><span></span></div>
+        <p class="dish-description">
+          The timeless classic, ice cold and effervescent.
+        </p>
+      </div>
+    </section>
+
+    <footer class="menu-footer">
+      <span class="footer-ornament">✾</span>
+      <p class="footer-text">Bon Appétit</p>
+    </footer>
+  </div>
+</body>
+</html>
